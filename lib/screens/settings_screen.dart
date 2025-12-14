@@ -20,25 +20,18 @@ class SettingsScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
 
-          RadioListTile<ThemeMode>(
-            value: ThemeMode.light,
-            groupValue: settings.themeMode,
-            title: const Text('Light'),
-            onChanged: settings.setThemeMode,
-          ),
+          const SizedBox(height: 12),
 
-          RadioListTile<ThemeMode>(
-            value: ThemeMode.dark,
-            groupValue: settings.themeMode,
-            title: const Text('Dark'),
-            onChanged: settings.setThemeMode,
-          ),
-
-          RadioListTile<ThemeMode>(
-            value: ThemeMode.system,
-            groupValue: settings.themeMode,
-            title: const Text('System'),
-            onChanged: settings.setThemeMode,
+          SegmentedButton<ThemeMode>(
+            segments: const [
+              ButtonSegment(value: ThemeMode.light, label: Text('Light')),
+              ButtonSegment(value: ThemeMode.dark, label: Text('Dark')),
+              ButtonSegment(value: ThemeMode.system, label: Text('System')),
+            ],
+            selected: {settings.themeMode},
+            onSelectionChanged: (selected) {
+              settings.setThemeMode(selected.first);
+            },
           ),
 
           const Divider(height: 32),
