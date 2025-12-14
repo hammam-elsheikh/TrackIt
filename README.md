@@ -23,4 +23,5 @@ If you haven't installed Flutter, follow the official installation guide for you
 
 
 #Run the application
+
 `flutter run`
