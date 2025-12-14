@@ -18,6 +18,8 @@ To run this app, you need to have Flutter installed on your computer. If you hav
 
 #Install the project dependencies:
 
-`flutter pub get
-Run the application
-flutter run`
+`flutter pub get`
+
+
+#Run the application
+`flutter run`
