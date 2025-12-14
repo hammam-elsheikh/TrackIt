@@ -9,12 +9,12 @@ If you haven't installed Flutter, follow the official installation guide for you
 
 #Clone the repository to your local machine:
 
-`git clone https://github.com/ujwalnk/Ritual.git`
+`https://github.com/hammam-elsheikh/TrackIt.git`
 
 
 #Navigate to the project directory:
 
-`cd Ritual`
+`cd task_tracker`
 
 
 #Install the project dependencies:
