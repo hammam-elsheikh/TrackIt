@@ -1,16 +1,17 @@
-# task_tracker
+# TrackIt
 
-A new Flutter project.
+flutter app
 
-## Getting Started
+To run this app, you need to have Flutter installed on your computer. If you haven't installed Flutter, follow the official installation guide for your platform: Flutter Installation Guide.
 
-This project is a starting point for a Flutter application.
+##Installation
+#Clone the repository to your local machine:
+`git clone https://github.com/ujwalnk/Ritual.git`
 
-A few resources to get you started if this is your first Flutter project:
+#Navigate to the project directory:
+`cd Ritual`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#Install the project dependencies:
+`flutter pub get
+Run the application
+flutter run`
