@@ -58,51 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Widget _buildSideMenu(BuildContext context) {
-  //   return Drawer(
-  //     child: SafeArea(
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.stretch,
-  //         children: [
-  //           const Padding(
-  //             padding: EdgeInsets.all(16),
-  //             child: Text(
-  //               'Menu',
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //           ),
-
-  //           const Divider(),
-
-  //           ListTile(
-  //             leading: const Icon(Icons.bar_chart),
-  //             title: const Text('Stats'),
-  //             onTap: () {
-  //               Navigator.pop(context); // close drawer
-  //               Navigator.push(
-  //                 context,
-  //                 MaterialPageRoute(builder: (_) => StatsScreen(tasks: _tasks)),
-  //               );
-  //             },
-  //           ),
-
-  //           ListTile(
-  //             leading: const Icon(Icons.settings),
-  //             title: const Text('Settings'),
-  //             onTap: () {
-  //               Navigator.pop(context); // close drawer
-  //               Navigator.push(
-  //                 context,
-  //                 MaterialPageRoute(builder: (_) => const SettingsScreen()),
-  //               );
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   final List<Task> _tasks = [];
 
   void _openCompletedTasks() {
@@ -163,10 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openTaskDetails(Task task) async {
-    await Navigator.push(
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => TaskDetailsScreen(task: task)),
     );
+
+    if (result == 'deleted') {
+      setState(() {
+        _tasks.removeWhere((t) => t.id == task.id);
+      });
+      StorageService.saveTasks(_tasks);
+    }
     StorageService.saveTasks(_tasks);
     setState(() {});
   }
@@ -203,15 +165,51 @@ class _HomeScreenState extends State<HomeScreen> {
           : ListView.builder(
               itemCount: _tasks.length,
               itemBuilder: (_, index) {
-                return TaskTile(
-                  task: _tasks[index],
-                  onTap: () => _openTaskDetails(_tasks[index]),
-                  onChanged: (value) {
+                final task = _tasks[index];
+                return Dismissible(
+                  key: ValueKey(task.id),
+                  direction: DismissDirection.endToStart, // swipe left
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  confirmDismiss: (_) async {
+                    return await showDialog<bool>(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Delete task?'),
+                        content: const Text('This action cannot be undone.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: const Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  onDismissed: (_) {
                     setState(() {
-                      _tasks[index].isDone = value!;
+                      _tasks.removeAt(index);
                     });
                     StorageService.saveTasks(_tasks);
                   },
+                  child: TaskTile(
+                    task: task,
+                    onTap: () => _openTaskDetails(task),
+                    onChanged: (value) {
+                      setState(() {
+                        task.isDone = value!;
+                      });
+                      StorageService.saveTasks(_tasks);
+                    },
+                  ),
                 );
               },
             ),
