@@ -5,7 +5,6 @@ import 'task_details_screen.dart';
 import 'dart:math';
 import 'completed_tasks_screen.dart';
 import '../services/storage_service.dart';
-import '../models/app_menu_item.dart';
 import 'stats_screen.dart';
 import 'settings_screen.dart';
 
@@ -59,50 +58,50 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildSideMenu(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'Menu',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
+  // Widget _buildSideMenu(BuildContext context) {
+  //   return Drawer(
+  //     child: SafeArea(
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.stretch,
+  //         children: [
+  //           const Padding(
+  //             padding: EdgeInsets.all(16),
+  //             child: Text(
+  //               'Menu',
+  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //             ),
+  //           ),
 
-            const Divider(),
+  //           const Divider(),
 
-            ListTile(
-              leading: const Icon(Icons.bar_chart),
-              title: const Text('Stats'),
-              onTap: () {
-                Navigator.pop(context); // close drawer
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => StatsScreen(tasks: _tasks)),
-                );
-              },
-            ),
+  //           ListTile(
+  //             leading: const Icon(Icons.bar_chart),
+  //             title: const Text('Stats'),
+  //             onTap: () {
+  //               Navigator.pop(context); // close drawer
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(builder: (_) => StatsScreen(tasks: _tasks)),
+  //               );
+  //             },
+  //           ),
 
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context); // close drawer
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SettingsScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  //           ListTile(
+  //             leading: const Icon(Icons.settings),
+  //             title: const Text('Settings'),
+  //             onTap: () {
+  //               Navigator.pop(context); // close drawer
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(builder: (_) => const SettingsScreen()),
+  //               );
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   final List<Task> _tasks = [];
 
